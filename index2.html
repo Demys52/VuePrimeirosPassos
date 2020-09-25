@@ -1,0 +1,78 @@
+<!DOCUMENT html>
+<html lang="pt-br">
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Cadastro</title>
+</head>
+<body>
+    <div id='app' class='card'>
+        <div class='card-title'>
+            <h1> {{ titulo }}</h1>
+        </div>
+        <hr>
+        <div class='card-body'>
+            <form>
+                <div>
+                    <label for="nome">Nome</label>
+                    <input v-on:keyup='maskNome' type="text" id="nome" placeholder="Digite seu nome completo" v-model="usuario.nome">
+                </div>
+                <div>
+                    <label for="cep">CEP</label>
+                    <input type="text" id="cep" placeholder="Informe o CEP" v-model="usuario.cep">
+                </div>
+                <div>
+                    <label for="Endereco">Endereço</label>
+                    <input type="text" id="Endereco" placeholder="Digite o nome da rua" v-model="usuario.endereco">
+                </div>
+                <div>
+                    <label for="numero">Número</label>
+                    <input type="number" id="numero" placeholder="Número da casa" v-model="usuario.numero">
+                </div>
+                <div>
+                    <label for="referencia">Ponto de referência</label>
+                    <input type="text" id="referencia" placeholder="Ex.: Prox. a Farmácia (nome)" v-model="usuario.referencia">
+                </div>
+                <div>
+                    <label for="fone">Telefone</label>
+                    <input type="fone" id="fone" v-on:keyup='maskFone' placeholder="(99) 9.9999-9999" v-model="usuario.fone">
+                </div>
+                <div>
+                    <button>Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    var app = new Vue ({
+        el:     '#app',
+        data:   {
+            titulo: "Cadastro",
+            usuario: {nome: "", endereco: "", cep: "", numero: "", bairro: "", cidade: "", referencia: "", fone: ""}
+        },
+        methods:    {
+            maskNome: function() {
+                let nome = this.usuario.nome.replace(/\d/g, "");
+                nome = nome.replace(/^0/, "");
+                this.usuario.nome = nome;
+            },
+            maskFone: function() {
+                let fone = this.usuario.fone.replace(/\D/g, "");
+                fone = fone.replace(/^0/, "");
+                if (this.usuario.fone.length > 10) {
+                    this.usuario.fone = fone.replace(/^(\d\d)(\d)(\d{4})(\d{4}).*/, "($1) $2.$3-$3");
+                } else if (fone.length > 5) {
+                    this.usuario.fone = fone.replace(/^(\d\d)(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+                } else if (fone.length > 2) {
+                    this.usuario.fone = fone.replace(/^(\d\d)(\d{0,5})/, "($1) $2");
+                } else {
+                    this.usuario.fone = fone.replace(/^(\d*)/, "($1");
+                }
+            }
+        }
+    });
+</script>

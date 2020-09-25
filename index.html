@@ -1,0 +1,75 @@
+<!DOCUMENT html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <title>Cadastro</title>
+</head>
+<body>
+    <div id="app">
+        <form>
+            <div class="card">
+                <div class="card-head">
+                    <ol class="breadcrumb">
+                        <li class="item">Cadastro</li>
+                    </ol>
+                    <router-link to="/cadastrar">Cadastrar</router-link>
+                    <router-link to="/consultar">Consultar</router-link>
+                </div>
+            </div>
+                <router-view></router-view>
+        </form>
+    </div>       
+</body>
+</html>
+
+<template id="cadastro">
+    <div class="card-body">
+        <h1>Cadastro</h1>
+        <legend>Informe os dados para cadastrar</legend>
+        <div class="group">
+            <label>Nome</label>
+            <input type="text" placeholder="cnpj">
+        </div>
+        <div class="group">
+            <label>Endereço</label>
+            <input type="text" placeholder="Endereço">
+        </div>
+        <div class="group">
+            <label>Numero</label>
+            <input type="text" placeholder="Numero">
+        </div>
+        <div>
+            <input type=button value="Cadastrar" v-on:click="postRest()"> 
+        </div>
+    </div>
+</template>
+
+<template id="consulta">
+    <div class="conteiner">
+        <table>
+            <thead>
+                <th>Pronta?</th>
+                <th>Título</th>
+                <th>Remover</th>
+            </thead>
+            <tbody>
+                <tr v-for="consulta in resultado">
+                    <td><input type="checkbox"></td>
+                    <td><span>{{ consulta.name }}</span></td>
+                    <td><button>Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <input type=button value="Consultar" v-on:click="consultaRest()">
+    </div>
+</template>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+ <!--component-->
+<script src='component/consulta.js'></script>
+<script src='component/cadastro.js'></script>
+ <!--Vue-->
+ <script src='src/routes.js'></script>
+<script src='src/app.js'></script>
